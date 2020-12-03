@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+</head>
+<body>
+<!-- to loop over all of the items that our .find() function did from the tasks collection.
+We'll use the Jinja templating language 
+The iteration on this for-loop uses this new variable we created in app.py called 'task', and 
+then we'll use dot-notation to target each field.
+-->
+    {% for task in tasks %}
+        {{ task.task_name }}<br>
+        {{ task.category_name }}<br>
+        {{ task.task_description }}<br>
+        {{ task.is_urgent }}<br>
+        {{ task.due_date}}<br>
+    {% endfor %}
+    
+</body>
+</html>
