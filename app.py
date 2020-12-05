@@ -37,6 +37,7 @@ def get_tasks():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+<<<<<<< HEAD
     if request.method == "POST":
         # Check if username already exist in db assigning a new variable, using find_one() method
         existing_user = mongo.db.users.find_one(
@@ -58,6 +59,8 @@ def register():
         # put the new user into a 'sesion' temporary cookie, using the sesion function imported from flask at the top
         session["user"] = request.form.get("username").lower()
         flash("Registration Successful")
+=======
+>>>>>>> da33813108138eb721f879e599698e148261b4da
     return render_template("register.html")
 
 if __name__ == "__main__":
