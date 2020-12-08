@@ -23,14 +23,17 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-# creating a function with a decorator that includes a route to that function. The routing is a string that, 
-# when we attach it to a URL, will redirect to a particular function in our Flask app. 
-# added directly beneath our existing default root, so that either URL will direct the user to the same page.
+# creating a function with a decorator that includes a route to that function.
+# The routing is a string that,when we attach it to a URL, will redirect to a
+# particular function in our Flask app,added directly beneath our existing
+# default root, so that either URL will direct the user to the same page.
 @app.route("/get_tasks")
 def get_tasks():
     # On this tasks template, we want to generate data from our tasks collection on MongoDB, visible to our users.
-    # This will find all documents from the tasks collection, and assign them to our new 'tasks' variable.
-    tasks = mongo.db.tasks.find()
+    # This will find all documents from the tasks collection, and assign them
+    #  to our new 'tasks' variable.
+    # We convert the mongo cursor object into a list.
+    tasks = list(mongo.db.tasks.find())
     #As well as rendering of the template, we'll pass that tasks variable through to the template. 
     # The first 'tasks' is what the template will use, and that's equal to the
     # second 'tasks', which is our variable defined above.
