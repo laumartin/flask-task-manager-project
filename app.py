@@ -132,8 +132,35 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/add_task")
+@app.route("/add_task", methods=["GET", "POST"])
 def add_task():
+    if request.method == "POST":
+        # since this is a styled checkbox,we add a ternary operator and
+        # create a new variable, which will also be called 'is_urgent'
+        is_urgent = "on" if request.form.get("is_urgent") else "off"
+        # If the HTTP method requested is POST,we insert our form to the db.
+        # Normally use insert_one() method on our tasks collection, and inside,
+        # convert entire form into a dictionary with 'request.form.to_dict()'
+        # that would take all of our name attributes from the form, and build
+        # a dictionary that gets inserted into the db.However, we also want to
+        # include some additional fields,mwhich aren't listed on our form, such
+        # as the username of the person adding the task. So above we create our
+        # own dictionary of items from the form, stored in a variable 'task'.
+        task = {
+            # Python uses the name attributes from the form to grab data, and
+            # that's what gets stored into our db in these pair key-values.
+            "category_name": request.form.get("category_name"),
+            "task_name": request.form.get("task_name"),
+            "task_description": request.form.get("task_description"),
+            "is_urgent": is_urgent,
+            "due_date": request.form.get("due_date"),
+            "created_by": session["user"]  
+            }
+        # use the task variable into our tasks collection
+        mongo.db.tasks.insert_one(task)
+        flash("Task Successfully Added")
+        return redirect(url_for("get_tasks"))
+
     # Perform find() method on categories collection.The categories will
     # display in the same order we added them to the db,so sort them by
     # category_name key, using 1 for ascending, or alphabetical.
