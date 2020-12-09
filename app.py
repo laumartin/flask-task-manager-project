@@ -134,7 +134,13 @@ def logout():
 
 @app.route("/add_task")
 def add_task():
-    return render_template("add_task.html")
+    # Perform find() method on categories collection.The categories will
+    # display in the same order we added them to the db,so sort them by
+    # category_name key, using 1 for ascending, or alphabetical.
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    # we need to pass this new 'categories' variable over to our HTML
+    # template, so 'categories=categories'
+    return render_template("add_task.html", categories=categories)
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

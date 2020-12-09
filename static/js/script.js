@@ -2,6 +2,7 @@ $(document).ready(function(){
     $('.sidenav').sidenav({edge: "right"});
     $('.collapsible').collapsible();
     $('.tooltipped').tooltip();
+    $('select').formSelect();
     $('.datepicker').datepicker({
         // This are built-in options to customize the datepicker element from Materialize
         format: "dd mmmm, yyyy",
