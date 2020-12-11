@@ -169,6 +169,22 @@ def add_task():
     # template, so 'categories=categories'
     return render_template("add_task.html", categories=categories)
 
+
+# the route path needs to pass through task_id parameter
+@app.route("/edit_task/<task_id>", methods=["GET", "POST"])
+# function 'edit_task',will take the argument passed through the URL,task_id
+def edit_task(task_id):
+    # retrieve the task from the database that we are wanting to edit.
+    # at the top, we've imported ObjectId from BSON, which allows
+    # render MongoDB documents by their unique ID.
+    # The variable 'task' will perform .find_one() method on tasks collection,
+    # and look for the key of '_id'.
+    task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("edit_task.html", task=task, categories=categories)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
