@@ -154,7 +154,7 @@ def add_task():
             "task_description": request.form.get("task_description"),
             "is_urgent": is_urgent,
             "due_date": request.form.get("due_date"),
-            "created_by": session["user"]  
+            "created_by": session["user"]
             }
         # use the task variable into our tasks collection
         mongo.db.tasks.insert_one(task)
@@ -174,13 +174,31 @@ def add_task():
 @app.route("/edit_task/<task_id>", methods=["GET", "POST"])
 # function 'edit_task',will take the argument passed through the URL,task_id
 def edit_task(task_id):
+    if request.method == "POST":
+        is_urgent = "on" if request.form.get("is_urgent") else "off"
+        submit = {
+            "category_name": request.form.get("category_name"),
+            "task_name": request.form.get("task_name"),
+            "task_description": request.form.get("task_description"),
+            "is_urgent": is_urgent,
+            "due_date": request.form.get("due_date"),
+            "created_by": session["user"]
+            }
+        # 1st argument is the task to update targeted by id and
+        #  2nd is the submit variable. task_id is being passed through our
+        # route on line 174 so we can have it search based on that ID.
+        # To recap, we search for a task in the database by the task ID coming
+        # from the route.Once found,we update that task with the submit
+        # dictionary, which contains all of our form elements
+        mongo.db.tasks.update({"_id": ObjectId(task_id)}, submit)
+        flash("Task Successfully Updated")
+
     # retrieve the task from the database that we are wanting to edit.
     # at the top, we've imported ObjectId from BSON, which allows
     # render MongoDB documents by their unique ID.
     # The variable 'task' will perform .find_one() method on tasks collection,
     # and look for the key of '_id'.
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
-
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("edit_task.html", task=task, categories=categories)
 
