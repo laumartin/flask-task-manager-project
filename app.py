@@ -263,6 +263,14 @@ def edit_category(category_id):
     # equal to the new category variable found above.
     return render_template("edit_category.html", category=category)
 
+
+@app.route("/delete_category/<category_id>")
+def delete_category(category_id):
+    mongo.db.categories.remove({"_id": ObjectId(category_id)})
+    flash("Category Successfuly Removed")
+    return redirect(url_for("get_categories"))
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
