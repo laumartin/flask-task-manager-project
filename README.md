@@ -105,6 +105,7 @@ the deployed site is now available, and will automatically update the push chang
 Whenever installing new packages, the requirements.txt file must be updated so that Heroku knows we require more to run the app.
 
 The following packages have to be imported at the beggining of app.py file
+
 * flask: Using the following: 
     flash: to show text messages after a function is executed.
     render_template: Allows Flask look inside the templates directory to find the HTML files referenced in the return of the functions.
@@ -112,11 +113,17 @@ The following packages have to be imported at the beggining of app.py file
     request: when a function is called, to set conditions for the requested method GET or POST
     session: to be able to use session() functions to put the user into 'session', like a temporary page cookie.
     url_for: method to target Python functions name and to point to actual root of a file name.
+
 * flask-pymongo : Third-party library to get Flask to communicate with MongoDB Atlas.
+
 * dnsython: package to use the Mongo SRV connection string.
+
 * bson.objectid: MongoDB stores its data in a JSON-like format called BSON. In order to find documents from MongoDB, we need to be able to render the ObjectId
+
 * werkzeug.security : to make user authentication more secure using two main helpers "generate_password_hash", and "check_password_hash" that allow 
+
 * converting the user's password into another string, it will then salt that string with random data
+
 * env : to grab the hidden environment variables, only if env.py file exists in our root directory.
 
 ----
