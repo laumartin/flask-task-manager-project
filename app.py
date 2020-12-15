@@ -233,6 +233,36 @@ def add_category():
     return render_template("add_category.html")
 
 
+@app.route("/edit_category/<category_id>", methods=["GET", "POST"])
+# For consistency, the view will have the same name as the decorator, and will
+# accept the variable being sent above, for the category ID.
+def edit_category(category_id):
+    # If HTTP requested method is=POST,we submit the new data from the form
+    # via a dictionary. We've already got the variable 'category' defined
+    # below within the default GET method, so our dictionary will be 'submit'
+    if request.method == "POST":
+        submit = {
+            # the form only has the item, 'category_name', which we'll get
+            # from the requested form itself.
+            "category_name": request.form.get("category_name")
+        }
+        # we use .update()method from Mongo categories collection, which takes
+        # two dictionaries.The 2nd one is our 'submit' dictionary,so it knows
+        # what new information will be updated in the db.The 1st dictionary
+        # will define which specific category we want to update, so we target
+        # the 'category_id' being sent to this edit_category function above
+        mongo.db.categories.update({"_id": ObjectId(category_id)}, submit)
+        flash("Category Successfully Updated")
+        return redirect(url_for("get_categories"))
+    # Using the category ID sent into this function,perform .find_one() method
+    # on the categories collection, using the ObjectID, this will render as
+    # BSON in order to properly display between MongoDB and Flask.
+    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+    # the template is expecting a variable called 'category', so that we can
+    # specify which category is being updated on the form. We'll set that
+    # equal to the new category variable found above.
+    return render_template("edit_category.html", category=category)
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
