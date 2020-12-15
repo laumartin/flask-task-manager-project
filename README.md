@@ -70,13 +70,13 @@ Create Heroku account on heroku.com/
 Before creating the Heroku application, setup some files that Heroku needs to run the app.
 First, on Gitpod command line tell Heroku which applications and dependencies are required to run the app by creating the requirements.txt file.
 This app require the following:
-click==7.1.2
-dnspython==2.0.0
-Flask==1.1.2
-Flask-PyMongo==2.3.0
-itsdangerous==1.1.0
-pymongo==3.11.2
-Werkzeug==1.0.1
+...click==7.1.2
+...dnspython==2.0.0
+...Flask==1.1.2
+...Flask-PyMongo==2.3.0
+...itsdangerous==1.1.0
+...pymongo==3.11.2
+...Werkzeug==1.0.1
 
 Next, create the Procfile that Heroku looks for to know which file runs the app, and how to run it. The file contains the following:
 web: python app.py
@@ -105,19 +105,19 @@ the deployed site is now available, and will automatically update the push chang
 Whenever installing new packages, the requirements.txt file must be updated so that Heroku knows we require more to run the app.
 
 The following packages have to be imported at the beggining of app.py file
-*flask: Using the following: 
+* flask: Using the following: 
     flash: to show text messages after a function is executed.
     render_template: Allows Flask look inside the templates directory to find the HTML files referenced in the return of the functions.
     redirect: to use with routing will redirect to a particular function in our Flask app.
     request: when a function is called, to set conditions for the requested method GET or POST
     session: to be able to use session() functions to put the user into 'session', like a temporary page cookie.
     url_for: method to target Python functions name and to point to actual root of a file name.
-*flask-pymongo : Third-party library to get Flask to communicate with MongoDB Atlas.
-*dnsython: package to use the Mongo SRV connection string.
-*bson.objectid: MongoDB stores its data in a JSON-like format called BSON. In order to find documents from MongoDB, we need to be able to render the ObjectId
-*werkzeug.security : to make user authentication more secure using two main helpers "generate_password_hash", and "check_password_hash" that allow 
-*converting the user's password into another string, it will then salt that string with random data
-*env : to grab the hidden environment variables, only if env.py file exists in our root directory.
+* flask-pymongo : Third-party library to get Flask to communicate with MongoDB Atlas.
+* dnsython: package to use the Mongo SRV connection string.
+* bson.objectid: MongoDB stores its data in a JSON-like format called BSON. In order to find documents from MongoDB, we need to be able to render the ObjectId
+* werkzeug.security : to make user authentication more secure using two main helpers "generate_password_hash", and "check_password_hash" that allow 
+* converting the user's password into another string, it will then salt that string with random data
+* env : to grab the hidden environment variables, only if env.py file exists in our root directory.
 
 ----
 ## Technologies used
