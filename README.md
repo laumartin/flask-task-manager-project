@@ -10,10 +10,15 @@ It uses a cloud-based MongoDB provider integrated with Python.
 
 ## Features
 The app includes: 
+
 User authentication
+
 Two types of user, regular and admin. Only the Admin user can create, modify and delete task categories. The manage Categories Menu is only visible for the admin
+
 CRUD functions for each user to create, read, update and delete tasks they own.
+
 Restricted functions per user. Only the owner of the task can edit it or delete it, but all users can see all the tasks created.
+
 Search functionallity within the tasks created by all users
 
 ----
@@ -24,16 +29,27 @@ All the front end is based on Materialize framework built-in classes with very s
 ## Required Connections 
 
 MongoDB:
+
 Navigate to 'mongodb.com create an account and after loggin in, start by creating a Cluster service that our database will run on.
+
 select a Cloud provider and your closest region.
+
 For thi project, there is no need to pay for a database, the free tier is enough, choose the M0 Tier.
+
 Then, select 'Cluster Name' and click on the 'Create Cluster' button.
+
 click on 'Database Access' under the Security section on the left, in order to create our database user credentials.
+
 Click on 'Add New Database User', to create username and password.
+
 Set user privileges to 'Read and Write to the Database', and then we can click 'Add User'.
+
 click on 'Network Access' within the Security menu, in order to whitelist our IP address and make sure that it has access to our database.
+
 Click 'Add IP Address', and select 'Allow Access From Anywhere.
+
 Put the IP addresses of your hosts here, if possible, if not, choose 0.0.0.0
+
 Go back to Clusters tab, click on the 'Collections' button, click 'Add My Own Data' to create the database.
 
 ----
@@ -48,10 +64,15 @@ On GitPod create a file env.py which will contain the secret environment variabl
 
 It contains the folloing lines of code:
 `import os`
+
 `os.environ.setdefault("IP", "")`
+
 `os.environ.setdefault("PORT", "")`
+
 `os.environ.setdefault("SECRET_KEY", "")`
+
 `os.environ.setdefault("MONGO_URI", "")`
+
 `os.environ.setdefault("MONGO_DBNAME", "task_manager")`
 
 on the "" on each line include the corresponding values for each.
