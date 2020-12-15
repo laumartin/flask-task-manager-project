@@ -40,6 +40,19 @@ def get_tasks():
     return render_template("tasks.html", tasks=tasks)
 
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    # this will request the query name attribute from our form on tasks.html
+    query = request.form.get("query")
+    # We're building this on the main page that displays all tasks,so we need
+    # to reuse that functionality.Copy the 2 lines from get_tasks function but
+    # instead of finding all docs from tasks collection we perform indexsearch
+    # this means that we want to perform a '$search' on any '$text Index' for
+    # this collection, using the 'query' variable.
+    tasks = list(mongo.db.tasks.find({"$text": {"$search": query}}))
+    return render_template("tasks.html", tasks=tasks)
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -186,7 +199,7 @@ def edit_task(task_id):
             }
         # 1st argument is the task to update targeted by id and
         #  2nd is the submit variable. task_id is being passed through our
-        # route on line 174 so we can have it search based on that ID.
+        # route on line 179 so we can have it search based on that ID.
         # To recap, we search for a task in the database by the task ID coming
         # from the route.Once found,we update that task with the submit
         # dictionary, which contains all of our form elements
